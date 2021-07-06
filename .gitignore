@@ -1,0 +1,7 @@
+.DS_Store
+SchoolAdmin/bin
+SchoolAdmin/obj
+SchoolAdmin/obj*
+SchoolAdmin/bin*
+.DS_Store
+.vs/
