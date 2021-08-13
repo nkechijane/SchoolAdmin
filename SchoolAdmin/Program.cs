@@ -4,6 +4,11 @@ using SchoolAdmin.LookUp;
 using SchoolAdmin.Teaching;
 using System;
 using System.Collections.Generic;
+using SchoolAdmin.MongoDbDemo;
+using MongoDB.Bson;
+using SchoolAdmin.AdoDotnetDemo;
+using SchoolAdmin.AdoDotnetDemo.DTO;
+using Microsoft.Data.SqlClient.Server;
 
 namespace SchoolAdmin
 {
@@ -11,23 +16,36 @@ namespace SchoolAdmin
     {
         static void Main(string[] args)
         {
-            // Create a teacher instance
-            ITeacher firstTeacher = new Teacher(101, "Tunde Badmus");
+            // Instantiate the sqlDataService class
+            SqlDataService sqlDbservice = new SqlDataService();
 
-            // Create a subject instance based on the struct
-            SchoolSubject mySubject = new SchoolSubject
-            {
-                Code = 101,
-                Title = "Mathematics",
-                Category = "General"
-            };
+            // Define aand insert Teacher objects
+            TeacherDTO teacher1 = new TeacherDTO() { FirstName = "Adeleke", MiddleName = "", LastName = "Ayinde", Subject = "Physics" };
+            TeacherDTO teacher2 = new TeacherDTO() { FirstName = "Temi", MiddleName = "Temitope", LastName = "Tegbe", Subject = "Philosophy" };
+            sqlDbservice.Insert("teachers", teacher1);
+            sqlDbservice.Insert("teachers", teacher2);
 
-            // Assign the subject to the teacher
-            firstTeacher.Subject = mySubject;
+            // Define aand insert students objects
+            StudentDTO student1 = new StudentDTO() { FirstName = "Newmann", MiddleName = "Philip", LastName = "Amadi", Level = "SSS 3" };
+            StudentDTO student2 = new StudentDTO() { FirstName = "Habeeb", MiddleName = "", LastName = "Olakitan", Level = "SeniorMan" };
+            sqlDbservice.Insert("students", student1);
+            sqlDbservice.Insert("students", student2);
 
+            ////// Instantiate the MongoDbService class
+            //MongoDBService dbService = new MongoDBService();
+            ////dbService.TestConnection();
 
-            // Create a generic list of type ILearner
-            List<ILearner> studentList = new List<ILearner>();
+            ////Create Teacher documents and nsert it in the collection
+            //BsonDocument teacherDoc1 = new BsonDocument()
+            //{
+            //    {"staff_id", 1001 }, {"name", "Chief Adeleke Ayinde"}, {"subject", "Mathematics"}
+
+            //};
+            //BsonDocument teacherDoc2 = new BsonDocument()
+            //{
+            //    {"staff_id", 1002}, {"name", "High Chief Bayowa Odometa"}, {"subject", "Physics"}
+
+            //};
 
             // Create a number of Student instances
             ILearner firstStudent = new Student(1001, "Betty Turner");
@@ -41,6 +59,52 @@ namespace SchoolAdmin
             catalog.BookAdded += firstStudent.RecieveNewBookAlert;
 
             catalog.AddBook(new Book() { Title = "Things fall Apart", Author = "Chinua Achebe" });
+
+
+
+            ////dbService.Insert("students", studentDoc);
+            ////dbService.Insert("students", studentDoc2);
+
+            ////dbService.Insert("teachers", teacherDoc1);
+            ////dbService.Insert("teachers", teacherDoc2);
+
+            //Console.WriteLine("The available teachers are:");
+            //var teachers = dbService.FetchAll("teachers");
+            //foreach (var teacher in teachers)
+            //{
+            //    Console.WriteLine(teacher);
+            //}           
+
+            //// Create a teacher instance
+            //ITeacher firstTeacher = new Teacher(101, "Tunde Badmus");
+
+            //// Create a subject instance based on the struct
+            //SchoolSubject mySubject = new SchoolSubject
+            //{
+            //    Code = 101,
+            //    Title = "Mathematics",
+            //    Category = "General"
+            //};
+
+            //// Assign the subject to the teacher
+            //firstTeacher.Subject = mySubject;
+
+
+            //// Create a generic list of type ILearner
+            //List<ILearner> studentList = new List<ILearner>();
+
+            //// Create a number of Student instances
+            //ILearner firstStudent = new Student(1001, "Betty Turner");
+            //firstStudent.Level = StudentLevel.JSS1;
+
+            ////Create an instance of the LibraryCatalog class
+            //LibraryCatalog catalog = new LibraryCatalog();
+
+            ////Subscribe the teacher and student to the BookAdded event
+            //catalog.BookAdded += firstTeacher.RecieveNewBookAlert;
+            //catalog.BookAdded += firstStudent.RecieveNewBookAlert;
+
+            //catalog.AddBook(new Book() { Title = "Things fall Apart", Author = "Chinua Achebe" });
 
 
 
