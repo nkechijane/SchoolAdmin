@@ -9,6 +9,8 @@ using MongoDB.Bson;
 using SchoolAdmin.AdoDotnetDemo;
 using SchoolAdmin.AdoDotnetDemo.DTO;
 using Microsoft.Data.SqlClient.Server;
+using SchoolAdmin.AdoDotnetDemo.SqlDataService;
+
 
 namespace SchoolAdmin
 {
@@ -16,20 +18,50 @@ namespace SchoolAdmin
     {
         static void Main(string[] args)
         {
-            // Instantiate the sqlDataService class
-            SqlDataService sqlDbservice = new SqlDataService();
+            TeacherService teacherService = new TeacherService();
+            StudentService studentService = new StudentService();
 
-            // Define aand insert Teacher objects
-            TeacherDTO teacher1 = new TeacherDTO() { FirstName = "Adeleke", MiddleName = "", LastName = "Ayinde", Subject = "Physics" };
-            TeacherDTO teacher2 = new TeacherDTO() { FirstName = "Temi", MiddleName = "Temitope", LastName = "Tegbe", Subject = "Philosophy" };
-            sqlDbservice.Insert("teachers", teacher1);
-            sqlDbservice.Insert("teachers", teacher2);
+            //Define and insert Teacher objects
+            //TeacherDTO teacher1 = new TeacherDTO() { FirstName = "Adeleke", MiddleName = "", LastName = "Ayinde", Subject = "Physics" };
+            // TeacherDTO teacher2 = new TeacherDTO() { FirstName = "Temi", MiddleName = "Temitope", LastName = "Tegbe", Subject = "Philosophy" };
+            // TeacherDTO teacher3 = new TeacherDTO() { FirstName = "Amen", MiddleName = "Tope", LastName = "Leke", Subject = "History" };
+            // TeacherDTO teacher4 = new TeacherDTO() { FirstName = "Esther", MiddleName = "Sonia", LastName = "Tunde", Subject = "Biology" };
+            // teacherService.Insert(teacher1);
+            // teacherService.Insert(teacher2);
+            // teacherService.Insert(teacher3);
+            // teacherService.Insert(teacher4);
+
+
 
             // Define aand insert students objects
-            StudentDTO student1 = new StudentDTO() { FirstName = "Newmann", MiddleName = "Philip", LastName = "Amadi", Level = "SSS 3" };
-            StudentDTO student2 = new StudentDTO() { FirstName = "Habeeb", MiddleName = "", LastName = "Olakitan", Level = "SeniorMan" };
-            sqlDbservice.Insert("students", student1);
-            sqlDbservice.Insert("students", student2);
+            //StudentDTO student1 = new StudentDTO() { FirstName = "Newmann", MiddleName = "Philip", LastName = "Amadi", Level = "SSS 3" };
+            //StudentDTO student2 = new StudentDTO() { FirstName = "Habeeb", MiddleName = "", LastName = "Olakitan", Level = "SeniorMan" };
+            //studentService.Insert(student1);
+            //studentService.Insert(student2);
+
+            //Define Filter Information
+            KeyValuePair<string, object> filterPair = new KeyValuePair<string, object>("staffId", 10009);
+
+            //Define new Tedacher data for the update
+            //TeacherDTO newData = new TeacherDTO();
+            //newData.MiddleName = "Oladimeji";
+
+            //Invoke the update method
+            //teacherService.Update(filterPair, "=", newData);
+
+            //invoke ythe delete method
+            teacherService.Delete(filterPair, "=");
+
+            //query the database for all teachers
+            Console.WriteLine("The available teachers are: ");
+            var teachers = teacherService.FetchAll();
+            foreach(var teacher in teachers)
+            {
+                Console.WriteLine($"{teacher.StaffId} \t{teacher.FirstName} \t{teacher.MiddleName} \t{teacher.LastName} \t{teacher.Subject}");
+            }
+
+            Console.WriteLine("\n\n");
+                    
 
             ////// Instantiate the MongoDbService class
             //MongoDBService dbService = new MongoDBService();
@@ -48,17 +80,17 @@ namespace SchoolAdmin
             //};
 
             // Create a number of Student instances
-            ILearner firstStudent = new Student(1001, "Betty Turner");
-            firstStudent.Level = StudentLevel.JSS1;
+            //ILearner firstStudent = new Student(1001, "Betty Turner");
+            //firstStudent.Level = StudentLevel.JSS1;
 
             //Create an instance of the LibraryCatalog class
-            LibraryCatalog catalog = new LibraryCatalog();
+            //LibraryCatalog catalog = new LibraryCatalog();
 
             //Subscribe the teacher and student to the BookAdded event
-            catalog.BookAdded += firstTeacher.RecieveNewBookAlert;
-            catalog.BookAdded += firstStudent.RecieveNewBookAlert;
+            //catalog.BookAdded += teacher1.RecieveNewBookAlert;
+            //catalog.BookAdded += firstStudent.RecieveNewBookAlert;
 
-            catalog.AddBook(new Book() { Title = "Things fall Apart", Author = "Chinua Achebe" });
+            //catalog.AddBook(new Book() { Title = "Things fall Apart", Author = "Chinua Achebe" });
 
 
 

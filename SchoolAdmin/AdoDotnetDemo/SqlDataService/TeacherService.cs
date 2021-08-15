@@ -17,7 +17,7 @@ namespace SchoolAdmin.AdoDotnetDemo.SqlDataService
 
         public TeacherService()
         {
-            conn = new SqlConnection("Data Source =.; Initial Catalog = SchoolAdminDB; Integrted Security = True; Pooling = False");
+            conn = new SqlConnection("Data Source =.; Initial Catalog = SchoolAdminDB; Integrated Security = True; Pooling = False");
 
         }
          
@@ -47,7 +47,7 @@ namespace SchoolAdmin.AdoDotnetDemo.SqlDataService
                     StaffId = (int)rdr["StaffId"],
                     FirstName = (string)rdr["FirstName"],
                     MiddleName = rdr["MiddleName"] == DBNull.Value ? string.Empty : (string)rdr["MiddleName"],
-                    LastName = (string)rdr["LastNsame"],
+                    LastName = (string)rdr["LastName"],
                     Subject = (string)rdr["Subject"]
                 }); 
 
@@ -88,17 +88,17 @@ namespace SchoolAdmin.AdoDotnetDemo.SqlDataService
             updateStr += newData.MiddleName == null ? "" : $" MiddleName = '{newData.MiddleName}',";
             updateStr += newData.LastName == null ? "" : $" LastName = '{newData.LastName}',";
 
-            string commandStr = $"UPDATE Tesacher SET" + updateStr.TrimEnd(',') + filterStr;
+            string commandStr = $"UPDATE Teachers SET" + updateStr.TrimEnd(',') + filterStr;
             cmd = new SqlCommand(commandStr, conn);
             conn.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             conn.Close();
-            Console.WriteLine($"Succesdsfully updasted {rowsAffected} records in the 'Teachers' table.");
+            Console.WriteLine($"Successfully updated {rowsAffected} records in the 'Teachers' table.");
         }
 
         public void Delete (KeyValuePair<string, object> filterPair, string comparer)
         {
-            string commandStr = $"DELETE FROM Teaschers WHERE {filterPair.Key} {comparer} {filterPair.Value}'";
+            string commandStr = $"DELETE FROM Teachers WHERE {filterPair.Key} {comparer} {filterPair.Value}";
             cmd = new SqlCommand(commandStr, conn);
             conn.Open();
             int rowsAffected = cmd.ExecuteNonQuery();

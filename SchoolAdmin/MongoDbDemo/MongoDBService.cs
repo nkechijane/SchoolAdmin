@@ -12,7 +12,8 @@ namespace SchoolAdmin.MongoDbDemo
     {
         MongoClient mongo;
         IMongoDatabase database;
-        IMongoCollection<BsonDocument> teachersCollection, studentsCollection;
+        IMongoCollection<BsonDocument> teachersCollection, studentsCollection; 
+
 
         public MongoDBService()
         {

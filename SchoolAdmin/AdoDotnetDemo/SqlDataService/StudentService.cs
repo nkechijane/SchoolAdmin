@@ -19,7 +19,7 @@ namespace SchoolAdmin.AdoDotnetDemo.SqlDataService
 
         public StudentService()
         {
-            conn = new SqlConnection("DataSource = .; Initial Catalog = SchoolAdminDB; Integrated Security = True; Pooling = False");
+            conn = new SqlConnection("Data Source = .; Initial Catalog = SchoolAdminDB; Integrated Security = True; Pooling = False");
         }
 
         public void Insert(StudentDTO dataToInsert)
